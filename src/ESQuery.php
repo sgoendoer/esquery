@@ -1,13 +1,13 @@
 <?php namespace sgoendoer\esquery;
 
 use sgoendoer\esquery\ESQueryBuilder;
+use sgoendoer\esquery\ESQueryException;
 
 use sgoendoer\json\JSONObject;
-use sgoendoer\json\JSONException;
 
 /**
  * Elastic Search query
- * version 20160415
+ * version 20160419
  *
  * author: Sebastian Goendoer
  * copyright: Sebastian Goendoer <sebastian.goendoer@rwth-aachen.de>
@@ -20,14 +20,12 @@ class ESQuery
 	
 	public function __construct(ESQueryBuilder $builder)
 	{
-		parent::__construct();
-		
 		$this->index = $builder->getIndex();
 		$this->type = $builder->getType();
 		$this->query = $builder->getQuery();
 	}
 	
-	public function setIndex($index)
+	public function setIndex($index = 'default')
 	{
 		$this->index = $index;
 		return $this;
@@ -49,7 +47,7 @@ class ESQuery
 		return $this->type;
 	}
 	
-	public function setQuery($query)
+	public function setQuery(JSONObject $query)
 	{
 		$this->query = $query;
 		return $this;
@@ -61,9 +59,9 @@ class ESQuery
 		return $query;
 	}
 	
-	public function addMatch($column, $value)
+	public function setMatch($column, $value)
 	{
-		$this->query = '{"match":{"' . $column . '":"' . $value . '"}}';
+		$this->query = new JSONObject('{"match":{"' . $column . '":"' . $value . '"}}');
 		return $this;
 	}
 	
@@ -72,7 +70,7 @@ class ESQuery
 		$json = '{'
 			. '"index":"' . $this->index . '",'
 			. '"type":"' . $this->type . '",'
-			. '"query":' . $this->query . ''
+			. '"query":' . $this->query->write() . ''
 			. '}';
 		
 		return $json;

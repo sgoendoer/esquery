@@ -1,11 +1,13 @@
 <?php namespace sgoendoer\esquery;
 
-use sgoendoer\esquery\ESQueryException;
 use sgoendoer\esquery\ESQuery;
+use sgoendoer\esquery\ESQueryException;
+
+use sgoendoer\json\JSONObject;
 
 /**
  * Elastic Search query object builder
- * version 20160415
+ * version 20160419
  *
  * author: Sebastian Goendoer
  * copyright: Sebastian Goendoer <sebastian.goendoer@rwth-aachen.de>
@@ -23,12 +25,11 @@ class ESQueryBuilder
 	{
 		$jsonObject = json_decode($json);
 		
-		$builder = (new ESQueryBuilder())
-			->index($jsonObject->index)
-			->type($jsonObject->type)
-			->query($jsonObject->query);
-		
-		return $builder->build();
+		return (new ESQueryBuilder())
+				->index($jsonObject->index)
+				->type($jsonObject->type)
+				->query(new JSONObject($jsonObject->query))
+				->build();
 	}
 	
 	public function index($index)
@@ -53,7 +54,7 @@ class ESQueryBuilder
 		return $this->type;
 	}
 	
-	public function query($query)
+	public function query(JSONObject $query)
 	{
 		$this->query = $query;
 		return $this;
@@ -71,7 +72,7 @@ class ESQueryBuilder
 		if ($this->type == NULL)
 			throw new ESQueryException('Query type must not be null');
 		if ($this->query == NULL)
-			$this->query = '{"match_all": {}}';
+			$this->query = new JSONObject('{"match_all": {}}');
 		
 		return new ESQuery($this);
 	}
