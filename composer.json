@@ -1,7 +1,7 @@
 {
 	"name": "sgoendoer/esquery",
 	"description": "Building simple Elastic Search query objects",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"license": "MIT",
 	"require":
 	{
