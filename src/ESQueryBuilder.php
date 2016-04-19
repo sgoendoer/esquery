@@ -54,11 +54,17 @@ class ESQueryBuilder
 		return $this->type;
 	}
 	
-	public function query($column, $match)
+	public function query(JSONObject $json = NULL)
+	{
+		$this->query = $json;
+		return $this;
+	}
+	
+	/*public function match($column, $match)
 	{
 		$this->query = new JSONObject('{"match":{"' . $column . '":"' . $value . '"}}');
 		return $this;
-	}
+	}*/
 	
 	public function getQuery()
 	{
