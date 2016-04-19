@@ -14,6 +14,7 @@ or configure your composer.json accordingly
 
 ```php
     use sgoendoer\esquery\ESQuery;
+	use sgoendoer\esquery\ESQueryBuilder;
     
-    $esq = new ESQuery();
+    $esq = (new ESQueryBuilder())->type($type)->build();
 ```
