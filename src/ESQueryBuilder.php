@@ -62,7 +62,7 @@ class ESQueryBuilder
 	
 	public function match($column, $match)
 	{
-		$this->query = new JSONObject('{"match":{"' . $column . '":"' . $value . '"}}');
+		$this->query = new JSONObject('{"match":{"' . $column . '":"' . $match . '"}}');
 		return $this;
 	}
 	
