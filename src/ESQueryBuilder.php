@@ -60,11 +60,11 @@ class ESQueryBuilder
 		return $this;
 	}
 	
-	/*public function match($column, $match)
+	public function match($column, $match)
 	{
 		$this->query = new JSONObject('{"match":{"' . $column . '":"' . $value . '"}}');
 		return $this;
-	}*/
+	}
 	
 	public function getQuery()
 	{
