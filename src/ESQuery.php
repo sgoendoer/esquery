@@ -10,7 +10,7 @@ use sgoendoer\json\JSONObject;
  * version 20160419
  *
  * author: Sebastian Goendoer
- * copyright: Sebastian Goendoer <sebastian.goendoer@rwth-aachen.de>
+ * copyright: Sebastian Goendoer <sebastian.goendoer [AT] rwth-aachen.de>
  */
 class ESQuery
 {
